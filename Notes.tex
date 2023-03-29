@@ -47,6 +47,8 @@
 \newtheorem*{theo}{\bfseries Theorem}
 \newtheorem*{expl}{\bfseries Example}
 \newtheorem*{prf}{Proof:}
+\newtheorem*{note}{\bfseries Note}
+\newtheorem*{notation}{\bfseries Notation}
 
 
 
@@ -191,16 +193,17 @@ We define $\hat \rho := \oldsum_k p_k \ket{\Psi_k} \bra{\Psi_k}$ as the density 
 \subsection{Properties}
 \begin{enumerate}[label = \alph*)]
   \item The density operator is a hermitian semi-definit operator: $\scalar{\hat \rho} \geq 0$. \\
-  \emph{Proof:}
+  \begin{prf}
   \begin{equation*}
     \scalar{\Psi \vert \hat \rho \vert \Psi} = \oldsum_k p_k \abs{\scalar{\Psi \vert k}}^2 \geq 0 \forall \Psi \in \mathcal H
   \end{equation*}
+  \end{prf}
   \item $\tr \hat \rho = 1$
   \item $\hat{\rho}^2 \leq \hat \rho$ and $\hat \rho^2 = \hat \rho \iff \hat \rho = \ket{\Psi_1}\bra{\Psi_1}$ called a pure state.
 \end{enumerate}
 
-\subsection{Example: \textrm{Qubit density operator}}
-In diagonal (spectral) form, we can write the density operator as:
+\begin{expl}
+\textbf{Qubit density operator}: In diagonal (spectral) form, we can write the density operator as:
 \begin{equation*}
   \hat \rho = p_0 \ket{\Psi_0}\bra{\Psi_0} + p_1 \ket{\Psi_1}\bra{\Psi_1}
 \end{equation*}
@@ -214,6 +217,7 @@ with $p_0 + p_1 = 1$, so we can write these as: $p_0 = \frac{1 + r}{2}$, $p_1 = 
   \hat \rho = \frac{1}{2} \para{\hat I + \v r \cdot \v \si}
 \end{equation}
 where $\v r(\sin\theta \cos\p, \sin\theta \sin\p, \cos\theta)$ is a $3D$-vector and $\si$ are the Pauli operators, and represent a point in the Bloch ball. For $r = 0$, the density operator is the identity operator and we have the maximal mixed state.
+\end{expl}
 
 \section{Mixing theorem}
 It was formulated by Hughstom et al. in PLA (1993)
@@ -392,6 +396,182 @@ with eigenvalues $\left\{\frac{1}{2}, \frac{1}{2}, \frac{1}{2}, -\frac{1}{2}\rig
 \end{expl}
 
 
+\begin{theo}
+    $\mathcal E$ is a CPM $\iff \exists \{E_k\}$ such that
+    \begin{equation}
+      \oldsum_k E_k^\dagger E_k \leq \hat 1
+    \end{equation}
+    where the equality is given for CPTP maps in terms of which
+    \begin{equation}
+      \mathcal E(\rho) = \oldsum_k E_k \rho E_k^\dagger
+    \end{equation}
+    called the Kraus representation or operator sum representation and the $E_k$ are called Kraus operators.
+\end{theo}
+
+\begin{expl}
+\say{Decay of an atom}
+Let $\ket{e}$ be the excited state of a atom and $\ket{g}$ be its ground state. Then the Kraus operators are
+\begin{equation*}
+  \begin{cases}
+    E_0 & = \ket{g}\bra{g} + \sqrt{1 - \gamma} \ket{e} \bra{e} \\
+    E_1 & = \sqrt{\gamma} \ket{g}\bra{e}
+  \end{cases}
+\end{equation*}
+with $\gamma \in [0, 1]$. So
+\begin{align*}
+  \rho & \to E_0 \rho E_0^\dagger + E_1 \rho E_1^\dagger \\
+  & = \para{\ket{g} \bra{g} + \sqrt{1 - \gamma} \ket{e} \bra{e}} \rho \para{\ket{g} \bra{g} + \sqrt{1 - \gamma} \ket{e} \bra{e}} +   \para{\gamma \ket{g}\bra{e}} \rho \ket{e}\bra{g} \\
+  & \underset{\gamma \shortto 1}{\to} \ket{g}\scalar{g \vert \rho \vert g} \bra{rho} + \ket{g}\scalar{e \vert \rho \vert e} \bra{rho} \\
+  & = \ket{g}\bra{g} \underbrace{\para{\scalar{g \vert \rho \vert g} + \scalar{e \vert \rho \vert e}}}_{\tr \rho = 1} \\
+  & = \ket{g}\bra{g}
+\end{align*}
+a decay with $\gamma = 1 - e^{-\lambda t}$.
+\end{expl}
+
+\subsection{Stine spring dilation}
+Assume we have a system $s$ in an environement $e$ and we want to determine the effect of the environement on the system with the time evolution operator $U_{se}$, then we can decompose the state:
+\begin{equation}
+  \rho_{se} = \rho \otimes \ket{e_0} \bra{e_0}
+\end{equation}
+With a unitary map:
+\begin{equation*}
+  \rho_{se} \mapsto U_{se} \rho \otimes \ket{e_0} \bra{e_0} U_{se}^\dagger
+\end{equation*}
+The map of the system gives us:
+\begin{align*}
+  \rho & \mapsto \tr_e\para{U_{se} \rho_{se} U_{se}^\dagger}
+  & = \sum{n=0}{\dim \mathcal H_e - 1} \scalar{e_n \vert U_{se} \rho \otimes \vert e_0} \scalar{e_0 \vert U_{se}^\dagger \vert e_n} \\
+  & = \oldsum_n \scalar{e_n \vert U_{se} \vert e_0} \rho \scalar{e_0 \vert U_{se}^\dagger \vert e_n} \\
+  & = \oldsum_n E_n \rho E_n^\dagger
+\end{align*}
+To prove that $\para{\scalar{e_n \vert U_{se} \vert e_0}}^\dagger = \scalar{e_n \vert U_{se}^\dagger \vert e_0}$ use:
+\begin{equation*}
+  \oldsum_{k\ell,pq} \ket{s_k} \ket{s_\ell} (U_{se})_{k\ell, pq} \bra{s_q} \bra{p}
+\end{equation*}
+This is a CPTP map:
+\begin{align*}
+  \oldsum_n E_n^\dagger E_n & = \oldsum_n \para{\scalar{e_n \vert U_{se} \vert e_0}}^\dagger \scalar{e_n \vert U_{se} \vert e_0} \\
+  & = \oldsum_n \scalar{e_0 \vert U_{se}^\dagger \vert e_n} \scalar{e_n \vert U_{se} \vert e_0} \\
+  & = \scalar{e_0 \vert U_{se}^\dagger U_{se} \vert e_0} \\
+  & = \hat I_s \scalar{e_0 \vert \hat I_e \vert e_0} = \hat I_s
+\end{align*}
+One can use Stinespring dilation to prove that the Kraus representation is not unique. Using a basis transformation: $\ket{e_n} \mapsto \ket{f_n} = \oldsum_m \ket{e_m} U^\dagger_{mn}$ with a unitary basis transformation $U$. As $U$ only is unitary transformation should not affect the map. Kraus operators $\{F_n = \scalar{f_n \vert U_{se} \vert e_0}\}$ define the same map as $\{E_n = \scalar{e_n \vert U_{se} \vert e_0}\}$, one finds
+\begin{equation*}
+  F_n = \oldsum_m U_{mn} E_m
+\end{equation*}
+
+\section{Application of the CPM formalism:}
+\subsection{Measurement}
+A generalized measurement is a CPTP map with the following interpretation:
+\begin{enumerate}[label = (\roman*)]
+  \item Each measurement outcome $m_k$ is associated with a Kraus operator $E_k$.
+  \item The \textbf{Born rule}: the probability $P(m_k \vert \rho)$ is given by:
+  \begin{equation}
+    P(m_k \vert \rho) = \tr(E_k^\dagger E_k \rho)
+  \end{equation}
+  \item Update the probability distribution (i.e. the state) usnig the following rule:
+  \begin{equation}
+    \rho \underset{m_k}{\to} E_k \rho E_k^\dagger
+  \end{equation}
+\end{enumerate}
+The special case called von Neumann or projective measurment we have $E_k = \ket{k}\bra{k}$ and the measurement with probability yields:
+\begin{align*}
+  P(m_k \vert \rho) & = \tr(\ket{k}\bra{k} \ket{k}\bra{k} \rho) \\
+  & = \tr(\ket{k} \bra{k} \rho) \\
+  & = \scalar{k \vert \rho \vert k}
+\end{align*}
+if $\rho = \ket{\Psi} \bra{\Psi}$, then:
+\begin{align*}
+  \Longrightarrow P(m_k \vert \rho) & = \scalar{k \vert \Psi} \scalar{\Psi \vert k} \\
+  & = \abs{\scalar{k \vert \Psi}}^2
+\end{align*}
+\begin{note}
+  The sum of the probabilty of all outcomes:
+  \begin{align*}
+    \oldsum_k P(m_k \vert \rho) & = \oldsum_k \tr(E_k^\dagger E_k \rho) \\
+    & = \tr\para{\oldsum_k \underbrace{E_k^k E_k}_{\hat I} \rho} \\
+    & = \tr \rho = 1
+  \end{align*}
+\end{note}
+\begin{notation}
+  We define $\{\Pi_k := E_k^\dagger E_k \}$ as a positive operator valued measure (POVM).
+\end{notation}
+
+\begin{theo}
+  Non-orthogonal states can not be distinguished in a general measurement
+\end{theo}
+
+\begin{prf}
+  Assume $\ket{\Phi}$ and $\ket{\Psi}$ are non-orthogonal and \emph{can} be distinguished. If this is possible then there exists $\Pi_1$ and $P_2$ such that $\scalar{\Psi \vert \Pi_1 \vert \Psi} = 1$ and $\scalar{\Phi \vert \Pi_2 \vert \Phi} = 1$.
+  Because probabilities must add up to $1$, we must have $\scalar{\Psi \vert \Pi_2 \vert \Psi} = 0$ where $\Pi_k \geq 0$, so $\sqrt{\Pi_k} \geq 0$. We get:
+  \begin{equation*}
+    0 = \scalar{\Psi \vert \Pi_2 \vert \Psi} = \norm{\sqrt{\Pi_2} \ket{\Psi}}^2
+  \end{equation*}
+  so $\sqrt{\Pi_2} \ket{\Psi} = 0$ ($0$-vector). \\
+  We can write $\ket{\Phi} = a \ket{\Psi^\perp} + b \ket{\Psi}$ where $b \neq 0$ by assumption. This implies also that $\abs{a}^2 + \abs{b}^2 = 1$, so $\abs{a}^2 < 1$. Thus
+  \begin{align*}
+    \sqrt{\Pi_2} \ket{\Phi} & = a \sqrt{\Pi_2} \ket{\Psi^\perp} + b \sqrt{\Pi_2} \ket{\Psi} \\
+    & = a \sqrt{\Pi_2} \ket{\Psi^\perp}
+  \end{align*}
+  So
+  \begin{equation*}
+    \begin{cases}
+      \norm{\sqrt{\Pi_2} \ket{\Psi^\perp}} & = \scalar{\Phi \vert \Pi_2 \vert \Phi} = 1 \\
+      \norm{\sqrt{\Pi_2} \ket{\Psi^\perp}} & = \abs{a}^2 \scalar{\Psi^\perp \vert \Pi_2 \vert \Psi^2} \leq \abs{a}^2 < 1
+    \end{cases}
+  \end{equation*}
+\end{prf}
+
+\subsection{Lindblad equation}
+So far we have only been looking at discreet maps through CPMs. How would the dynamics of an open system be described, from a time $\rho_0$ to a time $T\; \rho_T$. We can model such case throught a series of small CPMs for timesteps $\Delta t \to 0$, where the environemental state is measured at each timesteps $t_i$, and the system always can be described as a product state. \\
+We can map the density operator as a sequence of CPM (Markonvian approximation)
+\begin{align*}
+  \rho & \mapsto \mathcal E_{k \de t, (k-1)\de t} \circ \cdots \circ \mathcal E_{2\de t, \de t} \circ \mathcal E_{\de t, 0} (\rho_0)
+\end{align*}
+We do the simplifying assumption, that $\mathcal E_{t + \de t, \de t} \equiv \mathcal E_{\de t}$ (which implies that the Hamiltonian of the system is time independent). We consider the map
+\begin{align*}
+\rho_t \mapsto \rho_{t + \de t} & = \oldsum_k E_k(\de t) \rho_t E_k^\dagger(\de t) \\
+& = \mathcal E_{\de t}(\rho_t) \\
+\mathcal E_{\de t} & \underset{\de t \shortto 0}{\to} \mathcal I
+\end{align*}
+with $\mathcal I$ being the identity map. \\
+This allows us to make an ansatz:
+\begin{equation*}
+  E_0 (\de t) = 1 - i(H - iG) \de t
+\end{equation*}
+With $H$ and $G$ hermitian operators.
+\begin{equation*}
+  E_{k>0} (\de t) = \sqrt{\de t} L_k
+\end{equation*}
+We assume that $\mathcal E_{\de t}$ is a CPTP since we do not exctact information of the system during the evolution, in other words $\tr \rho_t = 1$ for all $t$. This implies for our ansatz:
+\begin{align*}
+  \hat I & = \oldsum_k E_k^\dagger (\de t) E_k (\de t) \\
+  & = E_0^\dagger (\de t) E_0(\de t) + \sum{k=0}{} E_k^\dagger (\de t) E_k(\de t) \\
+  & = \hat I + 2 G \de t + \de t \sum{k=1}{} L_k^\dagger L_k + O(\de t^2)
+\end{align*}
+So we get:
+\begin{equation}
+  G = \frac{1}{2} \sum{k=1}{} L_k^\dagger L_k
+\end{equation}
+This gives us the Lindblad equation:
+\begin{align*}
+  \frac{\rho_{t + \de t} - \rho_t}{\de t} & = - i [H, \rho_t] + \oldsum_k \para{L_k \rho L_k\dagger - \frac{1}{2} \{L_k^\dagger L_k, \rho\}} \\
+  \de t \to 0 \Longrightarrow \dot{\rho}_t & = - i [H, \rho_t] + \oldsum_k \para{L_k \rho_t L_k\dagger - \frac{1}{2} \{L_k^\dagger L_k, \rho_t\}}
+\end{align*}
+where $\{A, B\} = AB + BA$ is the anticommutator, and $H$ should be interpreted as the Hamiltonian, thus the first term of the equation is called the \say{Schrödinger term}, the $L_k$ are called Lindblad operators and the anticommutator term give non hermitian dynamics.
+
+\begin{expl}
+Assume a qubit system with $L = \sqrt{\gamma} \si_z$ with Hamiltonian $H = \omega \si_z$, would give a density operator:
+\begin{equation*}
+  \rho_t = \frac{1}{2} (\hat I + \v r_t \cdot \v \si)
+\end{equation*}
+with the solution in the rotating frame.
+\begin{align*}
+  \dot{\v r} & = - 2 \gamma (x_t, y_t, 0) \\
+  \v r & = (x_0 e^{-2 \gamma t}, y_0 e^{-2 \gamma t}, z_0)
+\end{align*}
+which for $t \to \infty$, we end up with a state lying on the $z$-axis, and the exponential term in the $x$ and $y$ coordinates are called decoherence terms.
+\end{expl}
 
 
 \end{document}
