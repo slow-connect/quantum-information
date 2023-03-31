@@ -554,10 +554,10 @@ So we get:
   G = \frac{1}{2} \sum{k=1}{} L_k^\dagger L_k
 \end{equation}
 This gives us the Lindblad equation:
-\begin{align*}
-  \frac{\rho_{t + \de t} - \rho_t}{\de t} & = - i [H, \rho_t] + \oldsum_k \para{L_k \rho L_k\dagger - \frac{1}{2} \{L_k^\dagger L_k, \rho\}} \\
-  \de t \to 0 \Longrightarrow \dot{\rho}_t & = - i [H, \rho_t] + \oldsum_k \para{L_k \rho_t L_k\dagger - \frac{1}{2} \{L_k^\dagger L_k, \rho_t\}}
-\end{align*}
+\begin{align}
+  \frac{\rho_{t + \de t} - \rho_t}{\de t} & = - i [H, \rho_t] + \oldsum_k \para{L_k \rho L_k^\dagger - \frac{1}{2} \{L_k^\dagger L_k, \rho\}} \nonumber\\
+  \de t \to 0 \Longrightarrow \dot{\rho}_t & = - i [H, \rho_t] + \oldsum_k \para{L_k \rho_t L_k^\dagger - \frac{1}{2} \{L_k^\dagger L_k, \rho_t\}}
+\end{align}
 where $\{A, B\} = AB + BA$ is the anticommutator, and $H$ should be interpreted as the Hamiltonian, thus the first term of the equation is called the \say{Schrödinger term}, the $L_k$ are called Lindblad operators and the anticommutator term give non hermitian dynamics.
 
 \begin{expl}
@@ -572,6 +572,168 @@ with the solution in the rotating frame.
 \end{align*}
 which for $t \to \infty$, we end up with a state lying on the $z$-axis, and the exponential term in the $x$ and $y$ coordinates are called decoherence terms.
 \end{expl}
+
+
+
+\appendix
+\chapter{Exercices}
+\section{Qubit}
+
+\section{Quantum ensemble: Density operator}
+
+\section{Composite system}
+
+\section{Completely positive maps}
+18. \begin{enumerate}[label = (\alph*)]
+  \item The phase damping completely positive map: $\mathcal E(\rho) = (1-p)\rho + p \si_z \rho \si_z$ for $p \in [0, 1]$. The Kraus operators are
+  \begin{equation*}
+    \begin{cases}
+      E_0 & = \sqrt{1 - p} \hat I \\
+      E_1 & = \sqrt{p} \hat \si_z
+    \end{cases}
+  \end{equation*}
+  \item The bit flip map $\mathcal E(\rho) = (1-p)\rho + p \si_x \rho\si_x$ for $p\in [0, 1]$. The Kraus operators are
+  \begin{equation*}
+    \begin{cases}
+      E_0 & = \sqrt{1 - p} \hat I \\
+      E_1 & = \sqrt{p} \hat \si_x
+    \end{cases}
+  \end{equation*}
+  \item The phase shape and bit shift map $\mathcal E(\rho) = (1-p)\rho + p \si_y \rho\si_y$ for $p\in [0, 1]$. The Kraus operators are
+  \begin{equation*}
+    \begin{cases}
+      E_0 & = \sqrt{1 - p} \hat I \\
+      E_1 & = \sqrt{p} \hat \si_y
+    \end{cases}
+  \end{equation*}
+\end{enumerate}
+22. Consider a two lever atom with ground state $\ket{g}$ and excited state $\ket{e}$. The atom is placed in a cavity, which includes decay of an atom modeled by the unitary transformation
+\begin{align*}
+  \ket{e} \otimes \ket{n} & \mapsto \sqrt{1 - p} \ket{e} \otimes\ket{n} + \sqrt{p} \ket{g} \otimes \ket{n+1}\\
+  \ket{g} \otimes \ket{n} & \mapsto \ket{g} \otimes \ket{n}
+\end{align*}
+where $\ket{n}$ and $\ket{n+1}$ are the states of the quantizised field corresponding to the $n$ and $n+1$ photons in the cavity. Suppose the atom+cavity field start in the pure states
+\begin{equation*}
+  \ket{\Psi} = \para{\cos \sfrac \theta 2 \ket{g} + \sin \sfrac \theta 2 \ket{g}} \otimes \ket{n}
+\end{equation*}
+and undergoes a decay. Compute the average number of photons in the cavity as a function of the decay probability $p$. \\
+The expectation value is $\scalar{N} = \scalar{a^\dagger a} = \tr(\mathcal E(\rho_{\gamma}) N)$. The density of the composite system is:
+\begin{equation}
+  \rho_{a\gamma} = \ket{\Psi}\bra{\Psi} = \ket{\Psi_0} \bra{\Psi_0} \otimes \ket{n}\bra{n}
+\end{equation}
+Now appling the positivy map and calculate the partial trace.
+\begin{align*}
+  \mathcal E(\rho_{a\gamma} & = \left[\mathcal E (\ket{\Psi})\right]\left[\mathcal E (\ket{\Psi})\right]^\dagger \\
+  & = \tr_a(\mathcal E(\rho_{a\gamma})) = ...
+\end{align*}
+An alternative: From the lecture, we know, that a composite system evolves as $\rho_{se} \to U_{se} \rho_{se} U_{se}^\dagger$, then the system has a Kraus decomposition
+\begin{equation*}
+  \rho \to \oldsum E_n \rho E_n^\dagger
+\end{equation*}
+where $E_n = \scalar{E_n \vert U_{se} \vert E_0}$ with $E_n$ an orthogonal basis for the environement. On out atom system, we need to determine the basis for the composite system $\{\ket{g} \ket{0}, \ket{g}\ket{0}, \cdots, \ket{g} \ket{n}, \cdots, \ket{e}\ket{0}, \cdots \ket{e}\ket{n}, \cdots\}$.
+As a matrix, the time evolution operator looks like:
+\begin{equation*}
+  U =
+  \begin{pmatrix}
+    1 &&&&& 0 &&&& \\
+    & 1 & &&& \sqrt{p} & \ddots \\
+    && \ddots &&&& \ddots \\
+    &&& 1 &&&& 0 \\
+    &&&& \ddots &&& \sqrt{p} & \ddots \\
+    &&&&& \sqrt{1 - p} &&& \ddots \\
+    &&&&&& \ddots  \\
+    &&&&&&& \sqrt{1 - p} \\
+    &&&&&&&& \ddots
+  \end{pmatrix} =
+  \begin{pmatrix}
+    I & B \\
+    0 & C
+  \end{pmatrix}
+\end{equation*}
+We can calculate the Kraus coeffitions:
+\begin{equation*}
+  \begin{cases}
+    E_g & = \scalar{g \vert U_{ac} \vert \Psi_0} \\
+    E_e & = \scalar{e \vert U_{ac} \vert \Psi_0}
+  \end{cases}
+\end{equation*}
+with $\ket{\Phi_0} = \cos\sfrac\theta 2 \ket{g} + \sin \sfrac\theta 2 \ket{e}$ and get:
+\begin{align*}
+  E_g & = \cos\sfrac\theta 2 \scalar{g \vert U_{ac} \vert g} + \sin\sfrac\theta 2 \scalar{g \vert U_{ac} \vert e} \\
+  & = \cos\sfrac\theta 2 I + \sin \sfrac\theta 2 B \\
+  E_e & = \cos \sfrac\theta 2 \scalar{e \vert U_{ac} \vert g} + \sin\sfrac\theta 2 \scalar{e \vert U_{ac} \vert e} \\
+  & = \sin\sfrac\theta 2 C
+\end{align*}
+So we get:
+\begin{align*}
+  \mathcal E(\rho) & = \mathcal E(\ket{n}\bra{n}) \\
+  & = E_g \ket{n}\bra{n} E_g^\dagger + E_e \ket{n}\bra{n} E_e^\dagger \\
+  & = \cos^2 \sfrac \theta 2 \ket{n}\bra{n} + \cos\sfrac \theta 2\sin\sfrac \theta 2\para{\ket{n}\bra{n} B^\dagger + B \ket{n}\bra{n}} \\
+  & \phantom{=} + \sin^2\sfrac \theta 2 B \ket{n}\bra{n} B^\dagger + \sin^2\sfrac \theta 2\sin C \ket{n}\bra{n} C^\dagger \\
+  & = \left[\cos^2\sfrac \theta 2 + (1-p) \sin^2\sfrac \theta 2\right] \ket{n}\bra{n} + p \sin^2 \sfrac \theta 2 \ket{n+1} \bra{n+1} \\
+  & \phantom{=} + \sqrt{p} \sin\sfrac \theta 2\cos\sfrac \theta 2 \left[ \ket{n} \bra{n+1} + \ket{n+1}\bra{n}\right] \\
+\end{align*}
+We can now calculate the expectation value of $N$ with $N \ket{n} = a^\dagger a \ket{n} = n$
+\begin{align*}
+  \scalar{N} & = \tr(\mathcal E(\rho_c) N) \\
+  & = n \left[\cos^2 \sfrac \theta 2 + (1 - p)\sin^2\sfrac \theta 2\right] + (n+1) p \sin^2 \sfrac \theta 2 \\
+  & = n + p \sin^2 \sfrac \theta 2
+\end{align*}
+
+
+\section{Lindblad equation}
+26. Let $H$ be the Hamiltonian:
+\begin{equation*}
+  H = \oldsum E_k \ket{\Phi_k}\bra{\Phi_k}
+\end{equation*}
+with an error $L = \sqrt{\gamma}H$. Let $\rho(t)$ be the state of the system at time $t$, then:
+\begin{equation*}
+  \dot{\rho}(t) = - i [H, \rho] + \oldsum \para{L_n \rho L_n^\dagger - \frac{1}{2}\{L_n^\dagger L_n, \rho\}}
+\end{equation*}
+We want to show, that it reduced to
+\begin{equation*}
+  \dot{\rho}(t) = - [H, \rho] - \frac{\gamma}{2} [H, [H, \rho]]
+\end{equation*}
+We only need to show, that:
+\begin{align*}
+  L \rho L^\dagger - \frac{1}{2} \{LL^\dagger, \rho\} & = \gamma \para{H \rho H - \frac{1}{2} (H^2\rho + \rho H^2)} \\
+  -\gamma [H, [H, \rho]] & = -\gamma \para{H, H \rho - \rho H} \\
+  & = -\gamma \para{H^2 \rho - H \rho H - H\rho H + \rho H^2} \\
+  & = \frac{\gamma}{2} \para{ H \rho H - \frac{1}{2}(H^2 \rho + H^2 \rho)}
+\end{align*}
+This is the damping equation used in magnetism.
+We can write the density operator as
+\begin{equation*}
+   \rho = \oldsum_{\ell k} = \rho_{k\ell}(t) \ket{\Phi_k} \bra{\Phi_\ell}
+\end{equation*}
+that, because of linearity, we only need to solve them for one of the $\rho_{k\ell}$
+\begin{align*}
+  \dot{\rho}_{k\ell}(t) & = - \rho_{k\ell} [H, \ket{\Phi_k}\bra{\Phi_\ell}] - \frac{\gamma}{2} \rho_{k\ell} [H, [H, \ket{\Phi_k}\bra{\Phi_\ell}]] \\
+  % & = \rho_{k\ell}(t) \para{-i \para{H \ket{\Phi_k}\bra{\Phi_\ell} - \ket{\Phi_k}\bra{\Phi_\ell} H} - \frac{\gamma}{2}}   \\
+  & = \rho_{k\ell}(t) \para{-i (E_k - E_\ell) - \frac{\gamma}{2} (E_k - E_\ell)^2} \ket{\Phi_k}\bra{\Phi_\ell}
+\end{align*}
+And we get
+\begin{equation*}
+  \rho_{k\ell} (t) e^{t(-i(E_k - E_\ell))} e^{-\frac{\gamma t}{2}(E_k - E_\ell)^2}
+\end{equation*}
+For $\gamma t \shortto \infty$, $\rho_{k\ell}$ goes to $0$.
+
+
+\section{Measurements}
+
+\section{Quantum Entanglement}
+
+\section{Detecting quantum entanglement}
+
+\section{Quantifying quantum entanglement}
+
+\section{Quantum teleportation}
+
+\section{Bell's inequality}
+
+\section{Quantum copying}
+
+\section{von Neumann and relative entropy}
 
 
 \end{document}
