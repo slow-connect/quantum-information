@@ -45,10 +45,11 @@
 \theoremstyle{definition}
 \newtheorem*{defi}{\bfseries Definition}
 \newtheorem*{theo}{\bfseries Theorem}
-\newtheorem*{expl}{\bfseries Example}
+\newtheorem*{example}{\bfseries Example}
 \newtheorem*{prf}{Proof:}
 \newtheorem*{note}{\bfseries Note}
 \newtheorem*{notation}{\bfseries Notation}
+\newtheorem*{idea}{\bfseries Idea}
 
 
 
@@ -137,7 +138,7 @@ Louis \textsc{Henkel}\\
 
 
 \chapter{Introduction}
-\section*{Quantum Theory}
+\section{Quantum Theory}
 
 One can say, that quantum theory is a probability theory where events are assotiated with complex numbers $\alpha$ called probability amplitudes. There are three rules for these probability amplitudes:
 \begin{enumerate}[label = (\alph*)]
@@ -150,7 +151,7 @@ One can say, that quantum theory is a probability theory where events are assoti
   where the mixed term is called the interference term. This is where the difference between classical information and quantum information theory lies.
 \end{enumerate}
 
-\section*{Qubits}
+\section{Qubits}
 A qubit is a quantum mechanical system that can be described as a two dimensional Hilbert space. In general, this can be the polarisation of a photon, spin of an electron, of a neutron and so on. We can view a qubit as a abstract sense as $\mathcal H = \mathrm{span}\{\ket{0}, \ket{1}\}$. An arbitrary qubit state as $\alpha_0 \ket{0} + \alpha_1 \ket{1}$ with $\alpha_i \in \C$, with the normalisation condition ${\alpha_0}^1 + \abs{\alpha_1}^2 = 1$. From the normalisation we can write the probability amplitudes as
 \begin{equation}
   \begin{cases}
@@ -202,7 +203,7 @@ We define $\hat \rho := \oldsum_k p_k \ket{\Psi_k} \bra{\Psi_k}$ as the density 
   \item $\hat{\rho}^2 \leq \hat \rho$ and $\hat \rho^2 = \hat \rho \iff \hat \rho = \ket{\Psi_1}\bra{\Psi_1}$ called a pure state.
 \end{enumerate}
 
-\begin{expl}
+\begin{example}
 \textbf{Qubit density operator}: In diagonal (spectral) form, we can write the density operator as:
 \begin{equation*}
   \hat \rho = p_0 \ket{\Psi_0}\bra{\Psi_0} + p_1 \ket{\Psi_1}\bra{\Psi_1}
@@ -217,7 +218,7 @@ with $p_0 + p_1 = 1$, so we can write these as: $p_0 = \frac{1 + r}{2}$, $p_1 = 
   \hat \rho = \frac{1}{2} \para{\hat I + \v r \cdot \v \si}
 \end{equation}
 where $\v r(\sin\theta \cos\p, \sin\theta \sin\p, \cos\theta)$ is a $3D$-vector and $\si$ are the Pauli operators, and represent a point in the Bloch ball. For $r = 0$, the density operator is the identity operator and we have the maximal mixed state.
-\end{expl}
+\end{example}
 
 \section{Mixing theorem}
 It was formulated by Hughstom et al. in PLA (1993)
@@ -267,14 +268,12 @@ In the bipartite case we set $N=2$ with subsystems A and B, an arbitrary pure st
 \end{equation}
 with $n_i = \dim \mathcal H_i$.
 
-%% USe theorem instead
 \begin{theo}
 It states, that:
 \begin{equation}
   \ket{\Psi^{AB}} = \sum{m=1}{\min\{n_A, n_B\}} \sqrt{d_m} \ket{A_m} \otimes \ket{B_m}
 \end{equation}
 where $\ket{A_m} \in \mathcal H_A$ and $\scalar{A_m \vert A_{n}} = \de_{mn}$ for A and B and $\oldsum_m d_m = 1$.
-% END THEOREM
 \end{theo}
 
 For the proof we need singular value decomposition: Assume $a \in \mat(n_A \times n_B)$ matrix. Then we can write this matrix $a$ as
@@ -282,10 +281,8 @@ For the proof we need singular value decomposition: Assume $a \in \mat(n_A \time
   a = U \cdot d \cdots V
 \end{equation*}
 where $U \in U(n_A)$, $V \in U(n_B)$ unitary matrices and $d$ a \say{diagonal} $n_A \times n_B$ matrix with the singular values $\sqrt{d_i}$ on the diagonal.
-% use Proof environement
 \begin{prf}
 
-% \emph{Proof:}
 We view $a_{k\ell}$ as a $n_A \times n_B$ matrix. Then using singular value decomposition we get
 \begin{equation*}
   a_{k\ell} = \sum{m=1}{\min\{n_A, n_B\}} U_{km} \sqrt{d_m} V{m\ell}
@@ -303,13 +300,10 @@ It remains to prove, that orthonormality of the basis.
   & = (U^\dagger U)_{m, n} = \de_{m,n}
 \end{align*}
 \end{prf}
-%% END PROOF
 There exists no generalisation to $N$ partite system. If it existsed it would take the form: $\Psi^{AB\cdots X} = \oldsum_m \sqrt{d_m} \ket{A_m} \cdots \ket{X_m}$
 
-%% BEgin example
 
-% \emph{Example:}
-\begin{expl}
+\begin{example}
 Assume we have a 3-state qubit, we can write:
 \begin{align*}
   \Psi^{ABC} & = \ket{000} + a \para{\ket{011} + \ket{101} + \ket{110}} \\
@@ -326,7 +320,7 @@ that connot be decomposed into a Schmidt form. A similar state is
   \ket{W} := \frac{1}{\sqrt{3}} \para{\ket{001} + \ket{010} + \ket{100}}
 \end{equation*}
 that has no Schmidt decomposition.
-\end{expl}
+\end{example}
 
 \section{Reduced denisty operator, partial trace}
 
@@ -377,7 +371,7 @@ Transposition:
 (partial transpostion)
 \end{defi}
 
-\begin{expl}
+\begin{example}
 We have the state:
 \begin{align*}
   \ket{\Psi^{AB}} & = \frac{1}{\sqrt{2}} \para{\ket{01} - \ket{20}} \quad\to\quad \rho_{AB}^{T_A} = \ket{\Psi^{AB}} \bra{\Psi^AB}^{T_A} \\
@@ -393,7 +387,7 @@ We have the state:
   \end{pmatrix}
 \end{align*}
 with eigenvalues $\left\{\frac{1}{2}, \frac{1}{2}, \frac{1}{2}, -\frac{1}{2}\right\}$
-\end{expl}
+\end{example}
 
 
 \begin{theo}
@@ -408,7 +402,7 @@ with eigenvalues $\left\{\frac{1}{2}, \frac{1}{2}, \frac{1}{2}, -\frac{1}{2}\rig
     called the Kraus representation or operator sum representation and the $E_k$ are called Kraus operators.
 \end{theo}
 
-\begin{expl}
+\begin{example}
 \say{Decay of an atom}
 Let $\ket{e}$ be the excited state of a atom and $\ket{g}$ be its ground state. Then the Kraus operators are
 \begin{equation*}
@@ -426,7 +420,7 @@ with $\gamma \in [0, 1]$. So
   & = \ket{g}\bra{g}
 \end{align*}
 a decay with $\gamma = 1 - e^{-\lambda t}$.
-\end{expl}
+\end{example}
 
 \subsection{Stine spring dilation}
 Assume we have a system $s$ in an environement $e$ and we want to determine the effect of the environement on the system with the time evolution operator $U_{se}$, then we can decompose the state:
@@ -560,7 +554,7 @@ This gives us the Lindblad equation:
 \end{align}
 where $\{A, B\} = AB + BA$ is the anticommutator, and $H$ should be interpreted as the Hamiltonian, thus the first term of the equation is called the \say{Schrödinger term}, the $L_k$ are called Lindblad operators and the anticommutator term give non hermitian dynamics.
 
-\begin{expl}
+\begin{example}
 Assume a qubit system with $L = \sqrt{\gamma} \si_z$ with Hamiltonian $H = \omega \si_z$, would give a density operator:
 \begin{equation*}
   \rho_t = \frac{1}{2} (\hat I + \v r_t \cdot \v \si)
@@ -571,7 +565,114 @@ with the solution in the rotating frame.
   \v r & = (x_0 e^{-2 \gamma t}, y_0 e^{-2 \gamma t}, z_0)
 \end{align*}
 which for $t \to \infty$, we end up with a state lying on the $z$-axis, and the exponential term in the $x$ and $y$ coordinates are called decoherence terms.
-\end{expl}
+\end{example}
+
+
+\chapter{Quantum entanglement and cloning}
+
+\section{Quantum entanglement}
+In the beginning, we only talk about the bipartite case. We can divide our system into two subsystems.
+\begin{defi}
+A state $\ket{\Psi_{AB}} \in \mathcal H_A \otimes \mathcal H_B$ is entangled iff it cannot be written as a product state $\ket{\phi_A}\otimes\ket{phi_B}$
+\end{defi}
+\begin{example}
+  Given a 2 qubit system
+  \begin{equation*}
+    \ket{\Psi_{AB}} = a \ket{00} + b \ket{01} + c \ket{10} + d \ket{11}
+  \end{equation*}
+  with $a,b,c,d \in \C$ and $\scalar{\Psi_{AB} \vert \Psi_{AB}} = 1$. How do determine if this state can be written as a product state.
+  \begin{itemize}
+    \item We can put this into Schmidt form, so that:
+    \begin{equation*}
+      \ket{\Psi_{AB}} = \sum{k=1}{2}\sqrt{d_k} \ket{A_k} \otimes \ket{B_k}
+    \end{equation*}
+    then, $\ket{\Psi_{AB}}$ is entangled iff $d_1\cdot d_2 \neq 0$.
+    \item We can compute the reduced density operator $\rho_A = \tr_B \ket{\Psi_{AB}}\bra{\Psi_{AB}} = \sum{k=1}{2} d_k \ket{A_k} \bra{A_k}$, then if $d_1 \cdot d_2 \neq 0$ implies $\rho_A$ is a non-pure stare. Thus, if $\rho_A$ is non-pure, then $\ket{\Psi_{AB}}$ is mixed and vice versa.
+    \item In the this example, there is an easy way to deterime entanglement. Iff $ad-bc \neq 0$, then $\ket{\Psi_{AB}}$ is entangled.
+  \end{itemize}
+\end{example}
+
+Let us consider a mixed state with $\rho_{AB} \geq 0$ and $\tr \rho_{AB} = 1$.
+\begin{tcolorbox}
+  \begin{equation}
+    \rho_{AB} = \rho_A \otimes \rho_B \quad\to\quad \tr_B \rho_{AB} = \rho_A \tr \rho_B = \rho_A
+  \end{equation}
+\end{tcolorbox}
+How do we determine entanglement for $\rho_{AB}$?
+
+\begin{idea}
+  Suppose we have many copies of $\rho_A \otimes \rho_B$ and suppose that Alice and Bob can perform \say{coordinated} local operations $\{p_k, \mathcal E_k \otimes \mathcal F_k\}$ leading to:
+  \begin{align*}
+    \rho_{AB} & = \oldsum_k p_k \mathcal E_k \otimes \mathcal F_k (\rho_A \otimes \rho_B) \\
+    & = \oldsum_k p_k \mathcal E_k(\rho_A) \otimes \mathcal F_k(\rho_B) \\
+    & = \oldsum_k p_k \rho_A^k \otimes \rho_B^k
+  \end{align*}
+  Since we only use local operations and classical communication (LOCC) starting from a product state, the output will \emph{not} be entangled such a state is called separable.
+\end{idea}
+
+\begin{defi}
+    A state $\rho_{AB}$ is entangled iff it \emph{cannot} be written in the form $\oldsum_k p_k \rho_A^k \otimes \rho_B^k$.
+\end{defi}
+
+\section{Entanglement detection}
+We are given a state $\rho_{AB}$, how do we determine if it is entangled or not?
+\begin{theo}[Horodedu family : Phy. lett A (1996)]
+
+  $\rho_{AB}$ is separable $\iff$ for every \say{positive} map $\mathcal A$ on one of the subsystems $\mathcal A \otimes I_B (\rho_{AB}) \geq 0$.
+  \end{theo}
+\begin{itemize}
+  \item \emph{Useful test}: (PPT = positive partial transposition) \\
+  \begin{equation}
+    \rho^{AB}\: \textrm{is seperable} \Longrightarrow \para{\rho^{AB}}^{T_A} \geq 0
+  \end{equation}
+  The implication to the other side only holds for $2 \otimes 2$ or $2 \otimes 3$ systems.
+\end{itemize}
+
+\section{Quantifying entanglement}
+\begin{defi}
+  We can quantifying entanglement by using a measurment function
+  \begin{equation*}
+    \mu:  \mathcal H_A \otimes \mathcal H_B \to  \R \; : \: \rho^{AB} \mapsto \mu(\rho^{AB})
+  \end{equation*}
+  This measurment function should furfill:
+  \begin{itemize}
+    \item $\mu \geq 0$
+    \item $\mu = 0$ for separable states
+    \item $\mu$ is be non-increasing under LOCC
+    \item $\mu$ is invariant under local unitary operations.
+  \end{itemize}
+\end{defi}
+There are \emph{two} measures:
+\begin{enumerate}[label=(\alph*)]
+  \item \emph{Negativity}: Based on PPT:
+  \begin{align*}
+    \mathcal N_e (\rho^{AB}) = \frac{\tr\abs{\para{\rho^{AB}}^{T_A}} - 1}{2} = \frac{\norm{\para{\rho^{AB}}^{T_A}} - 1}{2}
+  \end{align*}
+  where $\norm{\rho} := \tr\sqrt{A^\dagger A}$
+  \begin{example}
+    We look at the state $\ket{\Psi^{AB}} = \frac{1}{\sqrt{2}} \para{\ket{01} - \ket{10}}$ where the eigenvalues of $\para{\ket{\Psi^{AB}} \bra{\Psi^{AB}}}^{T_A}$ are $\frac{1}{2}$, $\frac{1}{2}$,  $\frac{1}{2}$, $-\frac{1}{2}$. so the negativity is non-zero.
+  \end{example}
+  \item \emph{Concurrence}: Only works for $2 \times 2$ systems from its definition. \\
+  Based on the univeral flip: $\Theta(\alpha \ket{0} + \beta\ket{1}) = - \beta^*\ket{0} + \alpha^*\ket{1}$, that is orthogonal to the initial state (such an aperation cannot be made, because we cannot make comlped conjugation). \\
+  A pure state of two qubits written in Schmidt decomposition:
+  \begin{align*}
+    \ket{\Psi_{AB}} & = \sum{k=0}{1} \sqrt{d_k} \ket{A_k} \otimes \ket{B_k} \\
+    & = \sqrt{d_k} \ket{A_0} \otimes \ket{B_0} + \sqrt{d_1} \ket{A_1} \otimes \ket{B_1} \overset{\say{\Theta_A\otimes \Theta_B}}{\to} \\
+    & \to \sqrt{d_0} \ket{A_1} \otimes\ket{B_1} + \sqrt{d_1} \ket{A_0} \otimes \ket{B_0} =: \ket{\tilde \Psi_{AB}} \\
+    & \Longrightarrow \abs{\scalar{\tilde \Psi_{AB} \vert \Psi_{AB}}} = 2 \sqrt{d_0 d_1} = 2 \sqrt{d_0 (1 - d_0)} \leq 1
+  \end{align*}
+  with equality if $d_0 = \frac{1}{2}$. \\
+  The concurrence $C(\Psi_{AB})$
+\end{enumerate}
+
+
+\subsection{Generalization to mixed states (Wootters, PRL 1998)}
+Given a state $\rho_{AB}$
+\begin{itemize}
+  \item Qubit flip: $\rho_{AB} \mapsto \tilde \rho_{AB} = \si_y \otimes \si_y \mathcal K(\rho_{AB}) \si_y \otimes\si_y$ where $\mathcal K$ is the comlpex conjugation with regard to the product basis $\ket{00}, \cdots, \ket{11}$.
+  \item Compute the eigenvalues $\lambda_k$ of $\rho_{AB}\tilde \rho_{AB}$.
+  \item We compute: $\max\{0, \sqrt{\lambda_1} - \sqrt{\lambda_2} - \sqrt{\lambda_3} - \sqrt{\lambda_4}\} = C(\rho_{AB})$, where $\lambda_1$ is the largest eigenvalue. 
+\end{itemize}
 
 
 
