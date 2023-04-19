@@ -95,7 +95,7 @@
 
 
 \let\d\dontneetu
-\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\tr}{Tr}
 \DeclareMathOperator{\d}{d}
 \let\Re\mathfrakR
 \let\Im\mathfrakI
@@ -614,7 +614,7 @@ How do we determine entanglement for $\rho_{AB}$?
     A state $\rho_{AB}$ is entangled iff it \emph{cannot} be written in the form $\oldsum_k p_k \rho_A^k \otimes \rho_B^k$.
 \end{defi}
 
-\section{Entanglement detection}
+\subsection{Entanglement detection}
 We are given a state $\rho_{AB}$, how do we determine if it is entangled or not?
 \begin{theo}[Horodedu family : Phy. lett A (1996)]
 
@@ -628,7 +628,7 @@ We are given a state $\rho_{AB}$, how do we determine if it is entangled or not?
   The implication to the other side only holds for $2 \otimes 2$ or $2 \otimes 3$ systems.
 \end{itemize}
 
-\section{Quantifying entanglement}
+\subsection{Quantifying entanglement}
 \begin{defi}
   We can quantifying entanglement by using a measurment function
   \begin{equation*}
@@ -671,8 +671,189 @@ Given a state $\rho_{AB}$
 \begin{itemize}
   \item Qubit flip: $\rho_{AB} \mapsto \tilde \rho_{AB} = \si_y \otimes \si_y \mathcal K(\rho_{AB}) \si_y \otimes\si_y$ where $\mathcal K$ is the comlpex conjugation with regard to the product basis $\ket{00}, \cdots, \ket{11}$.
   \item Compute the eigenvalues $\lambda_k$ of $\rho_{AB}\tilde \rho_{AB}$.
-  \item We compute: $\max\{0, \sqrt{\lambda_1} - \sqrt{\lambda_2} - \sqrt{\lambda_3} - \sqrt{\lambda_4}\} = C(\rho_{AB})$, where $\lambda_1$ is the largest eigenvalue. 
+  \item We compute: $\max\{0, \sqrt{\lambda_1} - \sqrt{\lambda_2} - \sqrt{\lambda_3} - \sqrt{\lambda_4}\} = C(\rho_{AB})$, where $\lambda_1$ is the largest eigenvalue.
 \end{itemize}
+
+\subsection{Multipartite entanglement}
+
+Say we have a $N$-partite state $\ket{\Psi^{A_1\cdots A_N}}$, then the definition of entanglement is not trivial. We can define the state as:
+\begin{equation}
+  \ket{\Psi^{A_1\cdots A_N}} = \sum{n_{A_1}\cdots n_{A_N}}{}
+  a_{n_{A_1} \cdots n_{A_n}} \ket{n_{A_1}\:\cdots\: n_{A_N}}
+\end{equation}
+The probability amplitude coeffitions $\{a_{n_{A_1}\cdots n_{A_n}}\} \mapsto \textrm{Polynomial}\{a_{n_{A_1}\cdots n_{A_n}}\}$ that is general invariant under local transformatian $U_{A_i} \otimes \cdots \otimes U_{A_N}$.
+\begin{example}
+  We can write a 2-qubit: $a \ket{00} + b \ket{01} + c \ket{10} + d \ket{11}$ the polynomial is $ad - bc$.
+\end{example}
+\begin{example}
+  Say we have 3 qubits: Consider the states
+  \begin{align*}
+    \ket{GHZ} & = \frac{1}{\sqrt{2}} \para{\ket{000} + \ket{111}} \\
+    \ket{W} & = \frac{1}{\sqrt{3}} \para{\ket{001} + \ket{010} + \ket{100}}
+  \end{align*}
+  We can write decompose these states as
+  \begin{align*}
+    \ket{GHZ} & = \frac{1}{\sqrt{2}} \ket{0} \ket{00} + \frac{1}{\sqrt{2}} \ket{1} \ket{11} \\
+    \ket{W} & = \frac{\sqrt{2}}{\sqrt{3}} \ket{0} \para{\frac{\ket{01} + \ket{10}}{\sqrt{2}}} + \frac{1}{\sqrt{3}} \ket{1} \ket{00}
+  \end{align*}
+  The traces and concurrence are
+  \begin{align*}
+    \rho_{GHZ} & = \tr_3(\ket{GHZ}\bra{GHZ}) \\
+    & = \frac{1}{2} \ket{00}\bra{00} + \frac{1}{2}\ket{11}\bra{11} \\
+    C(\rho_{GHZ}) & = 0 \\
+    C(W) & = 2 \frac{\sqrt{2}}{\sqrt{3}} \frac{1}{\sqrt{3}} = \frac{2\sqrt{2}}{3} \neq 0 \\
+    \rho_W & = \tr_1 \ket{W} \bra{W} \\
+    & = \frac{2}{3} \ket{\Psi_+} \bra{\Psi_+} + \frac{1}{3} \ket{00}\bra{00} \\
+    C(\rho_W) & = \frac{2}{3}
+  \end{align*}
+  Note: $C^2(\rho_W) = \frac{4}{9}$ and $C^2(W) = \frac{8}{9} = 2 C^2(\rho_W)$. We can see, that
+  \begin{align*}
+    \tau_{ABC}^W & = C^2(W) - C^2(\rho_W^{AB}) - C^2(\rho_W^{AC}) = 0 \\
+    \tau_{ABC}^{GHZ} & = C^2(GHZ) - C^2(\rho_{GHZ}^{AB}) - C^2(\rho_{GHZ}^{AC}) = 1
+  \end{align*}
+\end{example}
+In this example, we chose $A$ as a refercence frame. One can show, that for all tripartite states of three qubits,
+\begin{equation*}
+  \tau_{A\vert BC} = \tau_{B \vert AC} = \tau_{C \vert AB}
+\end{equation*}
+This implies that $\tau$, called 3-tangel or residial entanglement, is measure of \emph{genuine} 3-qubit entanglement just as concurrence is the measure 2-qubit entanglement. $\tau$ is a polynomial of degree $4$ in the probability amplitudes. $\tau$ is the hyperdeterminant of the $2 \times 2 \times 2$ cube matrix.
+
+\section{Quantum teleportation}
+
+\begin{defi}
+  We define the Bell basis as
+  \begin{align}
+    \ket{\Phi_\pm} & = \frac{1}{\sqrt{2}} \para{\ket{00} \pm \ket{11}} \\
+    \ket{\Psi_\pm} & = \frac{1}{\sqrt{2}} \para{\ket{01} \pm \ket{10}}
+  \end{align}
+\end{defi}
+The key message from quantum teleportation is that entanglement can be used as a resource. \\
+Assume, we have a that 2 persons, say Alice and Bob, and Alice has some state $\ket{\phi} = a \ket{0} + b \ket{1}$. How can Alice transfer the information on her state to Bob? \\
+A protocoll can be, that they share any maximally entangled state, say $\ket{\Phi_+} = \frac{1}{\sqrt{2}} \para{\ket{00} + \ket{11}}$, where each party has one qubit of this state. The total state of the system is then, rewritten in the Bell basis,
+\begin{align*}
+  \ket{\Gamma} & = \ket{\phi} \frac{1}{\sqrt{2}} \para{\ket{00} + \ket{11}} \\
+  & = \frac{a}{\sqrt{2}} \para{\ket{000} + \ket{011}} + \frac{b}{\sqrt{2}} \para{\ket{100} + \ket{111}} \\
+  & = \frac{1}{2} \ket{\Phi_+} \para{a\ket{0} + b \ket{1}} + \frac{1}{2} \ket{\Phi_-} \para{a \ket{0} - b \ket{1}} \\
+  & \phantom{=} + \frac{1}{2} \ket{\Psi_+} \para{a \ket{1} + b \ket{0}} + \frac{1}{2} \ket{\Psi_-} \para{a \ket{1} - b \ket{0}}
+\end{align*}
+Alice measures the Bell basis (i.o.w., she distinguished between the 4 states, above). If she obtains:
+\begin{itemize}
+  \item $\Phi_+$: $\ket{\Gamma} \to \ket{\Phi_+}\para{a \ket{0} + b \ket{1}} = \ket{\Phi_+} \ket{\phi}$
+  \item $\Phi_-$: $\ket{\Gamma} \to \ket{\Phi_-} \para{a \ket{0} - b \ket{1}} \underset{\si_z}{\to} \ket{\Phi_-} \si_z \para{a \ket{0} - b \ket{1}} = \ket{\Phi_-}\ket{\phi}$
+  \item $\Psi_+$: $\ket{\Gamma} \to \ket{\Psi_+} \para{a \ket{1} + b \ket{0}}\underset{\si_x}{\to} \ket{\Psi_+} \si_x \para{b\ket{0} + a \ket{1}} = \ket{\Psi_+}\ket{\phi}$
+  \item $\Psi_-$: $\ket{\Gamma} \to \ket{\Psi_-} \para{a \ket{1} - b \ket{0}}\underset{\si_y}{\to} \ket{\Psi_-} \si_y \para{b\ket{0} - a \ket{1}} = \ket{\Psi_-}\ket{\phi}$
+\end{itemize}
+
+\section{Entanglement of formation}
+
+\begin{defi}
+  The entropy is the gain of information of an event assotiated to a set of probabilities $\{p_k\}$. The canonic way, called Shannon entropy, the entropy is given by:
+  \begin{equation}
+    H(\{p_k\}) = - \sum{k}{} p_k \log p_k
+  \end{equation}
+  For a quantum system, the entropy formula can be given by the von Neumann entropy for some state $\rho = \sum{k}{} p_k \ket{\Psi_k}\bra{\Psi_k}$. is given by:
+  \begin{equation}
+    S(\rho) = - \tr(\rho \log\rho) = - \sum{k}{} \lambda_k \log \lambda_k
+  \end{equation}
+  for $\lambda_k$ the  eigenvalues of $\rho$, and $\log \rho = \sum{k}{} \ket{e_k}\bra{e_k} \log \lambda_k$
+\end{defi}
+
+Consider a state: $\ket{\Phi_{AB}} \mapsto \rho_A = \sum{k=1}{n_A \leq n_B} d_k \ket{A_k} \bra{A_k}, \rho_B = \sum{k}{} d_k \ket{B_k} \bra{B_k}$. Then
+\begin{align*}
+  S(\rho_A) = - \sum{k=1}{n_A} d_k \log d_k \\
+  S(\rho_B) = - \sum{k=1}{n_B} d_k \log d_k = - \sum{k=1}{n_A} d_k \log d_k - 0 \log 0
+\end{align*}
+For a product state $\ket{\Psi_{AB}} = \ket{A_1} \otimes \ket{B_1}$. The entropy is
+\begin{equation*}
+  \rho_A = \ket{A_1} \bra{A_1} \Longrightarrow S(\rho_A) = - 1 \log 1 - 0 \log 0 = 0
+\end{equation*}
+We get maximum entanglement for $d_1 = \cdots = d_{n_A} = \frac{1}{n}$, and the state vector would be $\ket{\Psi_{AB}} = \sum{k}{} \frac{1}{\sqrt{d}} \ket{A_k} \otimes \ket{B_k}$, with entropy
+\begin{equation*}
+  S(\rho_A) = - \sum{k=1}{n_A} \frac{1}{n_k} \log \frac{1}{n_k} = - n_A \cdot \frac{1}{n_A} \log \frac{1}{n_A} = \log n_A
+\end{equation*}
+
+\begin{example}
+  Say we have two qubits, chose $\log = \log_2$, then for any state $\rho_A$, we have $0 \leq S(\rho_A) \leq 1$. The entropy is given by:
+  \begin{equation*}
+    S(\rho_A) = - \lambda_0 \log \lambda_0 - \lambda_1 \log \lambda_1 = - \lambda_0 \log \lambda_0 - (1 - \lambda_0) \log (1 - \lambda_0) =: h(\lambda_0)
+  \end{equation*}
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width = 0.75\textwidth]{fig/entropy}
+    \caption{Plot of the thing}
+  \end{figure}
+  \newpage
+  It can be show, that
+  \begin{equation}
+    h(\lambda_0) = h \para{\frac{1 + \sqrt{1 - C(\Psi_{AB})^2}}{2}}
+  \end{equation}
+  The concurrence is given by:
+  \begin{align*}
+    C(\Psi_{AB}) & = 2 \sqrt{\lambda_0\lambda_1} = 2 \sqrt{\lambda_0 (1 - \lambda_0)} \\
+    C^2  & = 4 \lambda_0 - 4 \lambda_0^2 \\
+    \lambda_0 & = \frac{1}{2} \pm \sqrt{\frac{1}{4} - \frac{C^2}{4}}
+  \end{align*}
+  And the entropy is related to:
+  \begin{equation}
+    E_F (\Psi_{AB}) \equiv S(\rho_A) = h \para{\frac{1 + \sqrt{1 - C^2(\Psi_{AB})}}{2}}
+  \end{equation}
+\end{example}
+
+\subsection{Entanglement of formation of a mixed bipartite state}
+
+\begin{defi}
+  For the density operator $\rho_{AB} = \sum{k}{} p_k \ket{\Psi_{AB}^k} \bra{\Psi_{AB}^k}$, the entropy is defined as
+  \begin{equation}
+    E_F(\rho_{AB}) = \min_{\{p_k \ket{\Psi_{AB}^k}\}} \sum{k}{} p_k \de(p_A^k) = \sum{k}{} \tr_B(\ket{\Psi_{AB}^k} \bra{\Psi_{AB}^k})
+  \end{equation}
+\end{defi}
+For two qubits. we know $E_F(\rho_{AB}) = h \para{\frac{1 + \sqrt{1 - C(\Psi_{AB})^2}}{2}}$, and
+\begin{align*}
+  \rho_{AB} & \to \tilde \rho_{AB} = \si_y \otimes \si_y \rho_{AB}^* \si_y \otimes \si_y \\
+  & \to \rho_{AB} \tilde \rho_{AB} \\
+  & \to \lambda_1 \leq \lambda_2 \leq \lambda_3 \leq \lambda_4 \\
+  C
+\end{align*}
+
+\section{Bell's inequality}
+Or CHSH (standing for John Clauser, Michael Horne, Abner Shimony, and Richard Holt): We need four measruments with outcomes $a, a', b, b' = \pm 1$. We then construct the measrument:
+\begin{equation}
+  a (b + b') + a' (b - b') = \pm 2
+\end{equation}
+Averaging leads to the following inequality:
+\begin{equation*}
+  -2 \leq \scalar{a (b + b') + a' (b - b')} \leq 2
+\end{equation*}
+which leads to:
+\begin{equation*}
+  \abs{\scalar{a (b + b') + a' (b - b')}} \leq 2
+\end{equation*}
+This is the CHSH inequality for a classical form. For quantum mechanics, we need a source, sending out entangled qubits, where each have a certaint measurment angle. Assume, that the state of the qubits is initiality:
+\begin{equation*}
+  \ket{\Psi_-} = \frac{1}{\sqrt{2}} \para{\ket{01} - \ket{10}} \Longrightarrow \scalar{\Psi_- \vert \v a \v \si \otimes \v b \v \si \vert \Psi_-} = - \v a \cdot \v b
+\end{equation*}
+We want to calculate for the right angles:
+\begin{align*}
+  B_{CHSH} & = \abs{\v a \cdot \v b + \v a \cdot \v b' + \v a' \cdot \v b - \v a' \cdot \v b'} \\
+  & = \cos \frac{\pi}{4} + \cos \frac{\pi}{4} + \cos \frac{\pi}{4} - \cos \frac{3\pi}{4} \\
+  & = \frac{4}{\sqrt{2}} = 2 \sqrt{2} > 2
+\end{align*}
+
+The Werner state
+\begin{equation}
+  \rho_{\textrm{Werner}} = \frac{1 - p}{4} \hat 1 \otimes \hat 1 + p \ket{\Psi_-} \bra{\Psi_-}
+\end{equation}
+The Concurrence of this state: $C(\rho_{\textrm{Werner}}) \neq 0$, if $p > \frac{1}{3}$, but the CHSH is only broken for $p > \frac{1}{\sqrt{2}}$, which shows that entanglement is not the same as breaking localitiy
+
+
+\section{Ekert protocol (E91)}
+
+Published on 1991. This is a key distribution: Alice and Bob want to share a secret key. Alice and Bob share a pair of entangled qubit. They chose 3 measuring direction, where 2 pairs are equal. They announce each in which order they will measure. They look at the states pairs using the first two direction, they are used to check if CHSH, if it is broken, they know, that the set of pairs, where they have measured in the same direction are secure. If CHSH is not broken, then the key connot be trusted.  
+
+
+
+
+
 
 
 
